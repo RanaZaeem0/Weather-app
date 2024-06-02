@@ -71,7 +71,7 @@ function App() {
     cod: number;
   }
 
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(index.hot);
   const cheakWeather = () => {
     setError("");
     async function data() {
@@ -93,9 +93,9 @@ function App() {
             console.log(temp);
 
             if (temp > 5) {
-              setImage(index.suny);
+              setImage(index.hot);
             } else if (temp < 6) {
-              setImage(index.supercool);
+              setImage(index.winter);
             }
             console.log(image);
           };
@@ -126,15 +126,15 @@ function App() {
         Cheak Weather{" "}
       </h1>
       <div
-        className="w-full h-screen
+        className="w-full 
     flex items-center justify-center
-
-    bg-slate-500  text-slate-50 "
+  h-[85vh]
+    bg-slate-400  text-slate-50 "
       >
         <div className="w-96   rounded-xl relative">
           <img
-            src={image ? image : index.hot}
-            className="w-44 h-96 rounded-xl"
+            src={image}
+            className="w-screen h-96 rounded-xl"
             alt=""
           />
         </div>
