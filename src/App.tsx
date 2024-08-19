@@ -1,6 +1,60 @@
 import React, { useState } from "react";
 import "./App.css";
 import index from "./img/index.js";
+import { broken,smoke,rain,clear} from "./Background/index.ts"
+interface Coord {
+  lon: number;
+  lat: number;
+}
+
+interface Weather {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
+
+interface Main {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  humidity: number;
+}
+
+interface Wind {
+  speed: number;
+  deg: number;
+}
+
+interface Clouds {
+  all: number;
+}
+
+interface Sys {
+  type: number;
+  id: number;
+  country: string;
+  sunrise: number;
+  sunset: number;
+}
+
+interface WeatherResponse {
+  coord: Coord;
+  weather: Weather[];
+  base: string;
+  main: Main;
+  visibility: number;
+  wind: Wind;
+  clouds: Clouds;
+  dt: number;
+  sys: Sys;
+  timezone: number;
+  id: number;
+  name: string;
+  cod: number;
+}
 
 function App() {
   const [temp, setTemp] = useState(0);
@@ -13,64 +67,10 @@ function App() {
     setInputName(event.target.value);
   };
 
-  interface Coord {
-    lon: number;
-    lat: number;
-  }
-
-  interface Weather {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }
-
-  interface Main {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-  }
-
-  interface Wind {
-    speed: number;
-    deg: number;
-  }
-
-  interface Clouds {
-    all: number;
-  }
-
-  interface Sys {
-    type: number;
-    id: number;
-    country: string;
-    sunrise: number;
-    sunset: number;
-  }
-
-  interface WeatherResponse {
-    coord: Coord;
-    weather: Weather[];
-    base: string;
-    main: Main;
-    visibility: number;
-    wind: Wind;
-    clouds: Clouds;
-    dt: number;
-    sys: Sys;
-    timezone: number;
-    id: number;
-    name: string;
-    cod: number;
-  }
-
-  const [image, setImage] = useState(index.hot);
-  const cheakWeather = () => {
+  const [image, setImage] = useState(broken);
+  const cheakWeather =async () => {
     setError("");
-    async function data() {
+
       try {
         const finalInput = inputName.toLowerCase().trim();
         const response = await fetch(
@@ -78,25 +78,31 @@ function App() {
         );
 
         const data: WeatherResponse = await response.json();
-        if (data) {
-          const temp = data.main.temp;
-          const airPressure = data.main.pressure;
-          const disurbe = data.weather[0].main;
-          setWeath(disurbe);
-          setTemp(temp);
-          setAirPressure(airPressure);
-          const showPicture = () => {
-            console.log(temp);
-
-            if (temp > 5) {
-              setImage(index.hot);
-            } else if (temp < 6) {
-              setImage(index.winter);
+        if (response.ok) {
+         
+          console.log(data.weather[0].main);
+          
+          setWeath(data.weather[0].main);
+          setTemp(data.main.temp);
+          setAirPressure(data.main.pressure);
+          console.log(weath ,"ASd") ;
+        
+   
+            if (data.weather[0].main ==  "Smoke") {
+              setImage(smoke);
+            } else if (data.weather[0].main == "Rain") {
+              setImage(rain);
+            }
+            else if (data.weather[0].main == "Clear") {
+              setImage(clear);
+            }
+            else if (data.weather[0].main == "Clouds") {
+              setImage(smoke);
             }
             console.log(image);
-          };
+          
 
-          showPicture();
+          
         }
       } catch (error) {
         console.log(error);
@@ -113,8 +119,7 @@ function App() {
           }
         }
       }
-    }
-    data();
+    
   };
 
   return (
@@ -135,7 +140,7 @@ function App() {
         >
           <div className="">
             <h3 className="text-center text-2xl font-bold text-black ">
-              {weath}{" "}
+               {weath}
             </h3>
             <img src={index.svg} alt="" />
           </div>
