@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import index from "./img/index.js";
 
@@ -118,27 +118,20 @@ function App() {
   };
 
   return (
-    <>
-      <h1 className="text-center bg-slate-500 text-3xl font-bold text-black">
-        Cheak Weather{" "}
-      </h1>
+    <div className="bg-zinc-900">
       <div
         className="w-full 
     flex items-center justify-center
-  h-[85vh]
-    bg-slate-400  text-slate-50 "
+  h-screen
+      text-slate-50 "
       >
-        <div className="w-96   rounded-xl relative">
-          <img
-            src={image}
-            className="w-screen h-96 rounded-xl"
-            alt=""
-          />
+        <div className="w-96    rounded-xl relative">
+          <img src={image} className="w-screen h-[85vh] rounded-xl" alt="" />
         </div>
         <div
           className="flex-col
       flex items-start justify-center
-      absolute top-18 p-4" 
+      absolute top-18 p-4"
         >
           <div className="">
             <h3 className="text-center text-2xl font-bold text-black ">
@@ -146,21 +139,22 @@ function App() {
             </h3>
             <img src={index.svg} alt="" />
           </div>
+          <div className="">
+            <h3 className="text-center text-5xl font-bold text-black">
+              {temp}{" "}
+            </h3>
 
-          <h3 className="text-center text-2xl font-bold text-black">
-            Tempreture {temp}{" "}
-          </h3>
-
-          <h3 className="text-center text-1xl text-neutral-600">
-            Air Pressure {airPressure}
-          </h3>
-          <label
-            htmlFor=""
-            className="text-black
+            <h3 className="text-center text-1xl text-neutral-600">
+              Air Pressure {airPressure}
+            </h3>
+            <label
+              htmlFor=""
+              className="text-black
       font-bold"
-          >
-            City name :{inputName}
-          </label>
+            >
+              City name :{inputName}
+            </label>
+          </div>
           <input
             type="text"
             className="rounded-lg text-2xl text-black p-3"
@@ -175,7 +169,7 @@ function App() {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
