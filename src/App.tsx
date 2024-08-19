@@ -1,17 +1,13 @@
-import React, { ChangeEvent, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, {  useState } from "react";
 import "./App.css";
 import index from "./img/index.js";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [temp, setTemp] = useState(0);
   const [weath, setWeath] = useState("");
   const [inputName, setInputName] = useState("");
   const [airPressure, setAirPressure] = useState(0);
   const [error, setError] = useState("");
-  const [img,setImg] = useState("index.hot")
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputName(event.target.value);
@@ -99,6 +95,7 @@ function App() {
             }
             console.log(image);
           };
+
           showPicture();
         }
       } catch (error) {
@@ -141,7 +138,7 @@ function App() {
         <div
           className="flex-col
       flex items-start justify-center
-      absolute top-18 p-4"
+      absolute top-18 p-4" 
         >
           <div className="">
             <h3 className="text-center text-2xl font-bold text-black ">
